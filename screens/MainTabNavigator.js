@@ -1,58 +1,80 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { TabNavigator, TabBarBottom } from 'react-navigation';
+import React from "react";
+import { Icon } from "react-native-elements";
+import { TabNavigator, TabBarBottom } from "react-navigation";
+import Colors from "../shared/constants/Colors";
+import ProductsScreen from "../screens/Products/Products/ProductsScreen";
+import OrdersScreen from "../screens/Orders/Orders/OrdersScreen";
+import CentralScreen from "../screens/Central/CentralScreen";
+import ClientsScreen from "../screens/Clients/Clients/ClientsScreen";
+import SuppliersScreen from "../screens/Suppliers/Suppliers/SuppliersScreen";
 
-import Colors from '../shared/constants/Colors';
-
-import HomeScreen from './HomeScreen';
-import LinksScreen from './LinksScreen';
-import SettingsScreen from './SettingsScreen';
-
-export default TabNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
+export default TabNavigator({
+    Products: {
+        screen: ProductsScreen
     },
-    Links: {
-      screen: LinksScreen,
+    Orders: {
+        screen: OrdersScreen
     },
-    Settings: {
-      screen: SettingsScreen,
+    Central: {
+        screen: CentralScreen
     },
-  },
-  {
-    navigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused }) => {
-        const { routeName } = navigation.state;
-        let iconName;
-        switch (routeName) {
-          case 'Home':
-            iconName =
-              Platform.OS === 'ios'
-                ? `ios-information-circle${focused ? '' : '-outline'}`
-                : 'md-information-circle';
-            break;
-          case 'Links':
-            iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
-            break;
-          case 'Settings':
-            iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
-        }
-        return (
-          <Ionicons
-            name={iconName}
-            size={28}
-            style={{ marginBottom: -3 }}
-            color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
-          />
-        );
+    Clients: {
+        screen: ClientsScreen
+    },
+    Suppliers: {
+        screen: SuppliersScreen
+    }
+},
+{
+  navigationOptions: ({ navigation }) => ({
+      tabBarLabel: () => {
+          const {routeName} = navigation.state;
+          switch (routeName) {
+              case "Products": return "Produto";
+              case "Orders": return "Encomenda";
+              case "Central": return "Central";
+              case "Clients": return "Cliente";
+              case "Suppliers": return "Fornecedor";
+          }
+          return null;
       },
-    }),
+      tabBarIcon: ({ focused }) => {
+          const { routeName } = navigation.state;
+          let iconName;
+
+          switch (routeName) {
+              case "Products":
+                  iconName = "grid";
+                  break;
+              case "Orders":
+                  iconName = "basket-loaded";
+                  break;
+              case "Central":
+                  iconName = "bubbles";
+                  break;
+              case "Clients":
+                  iconName = "people";
+                  break;
+              case "Suppliers":
+                  iconName = "briefcase";
+                  break;
+          }
+          return (
+              <Icon
+                  name={iconName}
+                  type="simple-line-icon"
+                  size={20}
+                  color={focused ? Colors.primaryBlue : Colors.black}
+              />
+          );
+      },
+  }),
     tabBarComponent: TabBarBottom,
-    tabBarPosition: 'bottom',
+    tabBarPosition: "bottom",
     animationEnabled: false,
     swipeEnabled: false,
-  }
-);
+    tabBarOptions: {
+        activeTintColor: Colors.primaryBlue,
+        style: { paddingVertical: 5 },
+    },
+});
