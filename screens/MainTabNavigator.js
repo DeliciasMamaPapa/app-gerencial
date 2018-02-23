@@ -6,7 +6,7 @@ import ProductsScreen from "../screens/Products/Products/ProductsScreen";
 import OrdersScreen from "../screens/Orders/Orders/OrdersScreen";
 import CentralScreen from "../screens/Central/CentralScreen";
 import ClientsScreen from "../screens/Clients/Clients/ClientsScreen";
-import SuppliersScreen from "../screens/Suppliers/Suppliers/SuppliersScreen";
+
 
 export default TabNavigator({
     Products: {
@@ -20,9 +20,6 @@ export default TabNavigator({
     },
     Clients: {
         screen: ClientsScreen
-    },
-    Suppliers: {
-        screen: SuppliersScreen
     }
 },
 {
@@ -34,7 +31,6 @@ export default TabNavigator({
               case "Orders": return "Encomenda";
               case "Central": return "Central";
               case "Clients": return "Cliente";
-              case "Suppliers": return "Fornecedor";
           }
           return null;
       },
@@ -54,9 +50,6 @@ export default TabNavigator({
                   break;
               case "Clients":
                   iconName = "people";
-                  break;
-              case "Suppliers":
-                  iconName = "briefcase";
                   break;
           }
           return (
